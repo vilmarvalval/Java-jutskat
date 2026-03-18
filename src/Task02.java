@@ -9,13 +9,14 @@ import java.util.Scanner;
 
 public class Task02 {
 
+    // check if input is an integer to avoid crashing.
     public static boolean isInt(String x){
-     try {
-         Integer.parseInt(x);
-         return true;
-     } catch (NumberFormatException ex){
-         return false;
-     }
+         try {
+             Integer.parseInt(x);
+             return true;
+         } catch (NumberFormatException ex) {
+             return false;
+         }
     }
 
     public static void main(String[] args){
