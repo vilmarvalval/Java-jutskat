@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java_helloworld.iml" filepath="$PROJECT_DIR$/java_helloworld.iml" />
       <module fileurl="file://$PROJECT_DIR$/tasks1/tasks1.iml" filepath="$PROJECT_DIR$/tasks1/tasks1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tasks2/tasks2.iml" filepath="$PROJECT_DIR$/tasks2/tasks2.iml" />
     </modules>
   </component>
 </project>
