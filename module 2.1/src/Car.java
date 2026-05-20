@@ -7,17 +7,17 @@ public class Car {
      * Both are private (they can not be accessed outside the class methods).
      * Keep instance variables private whenever possible.
      */
-    private double speed;
-    private final double acceleration; //added acceleration
-    private final double maxSpeed;
+    protected double speed;
+    protected double acceleration; //added acceleration
+    protected double maxSpeed;
 
     private boolean cruiseOn = false;
     private double cruiseSpeed;
-    private final double maxCruise;
-    private final double minCruise;
-    
-    private final double tankCapacity; //added tank capacity
-    private double gasolineLevel;
+    protected double maxCruise;
+    protected double minCruise;
+
+    protected double tankCapacity; //added tank capacity
+    protected double gasolineLevel;
     
     private final String typeName;
 
@@ -35,39 +35,53 @@ public class Car {
      * Note that methods refer to and change instance variable values.
      */
     public void accelerate(double amount) {
-        if (gasolineLevel > 0) {
+        if (this.gasolineLevel > 0) {
             //added max speed, max acceleration and acceleration amount
-            speed = Math.min(maxSpeed, speed+Math.min(acceleration, amount));
-            gasolineLevel -= 1; //added car consuming gas
+            this.speed = Math.min(this.maxSpeed, this.speed+Math.min(this.acceleration, amount));
+            this.gasolineLevel = Math.max(0, this.gasolineLevel-1); //added car consuming gas
         }
-        else
-            speed = 0;
+        else {
+            this.speed = 0;
+        }
     }
     void decelerate(double amount) {
-        if (gasolineLevel > 0) {
+        if (this.gasolineLevel > 0) {
             if (amount > 0)
-                speed = Math.max(0, speed - amount);
+                this.speed = Math.max(0, this.speed - amount);
         } else
-            speed = 0;
+            this.speed = 0;
     }
-    double getSpeed() {
+    public double getSpeed() {
         return speed;
     }
+    protected void setSpeed(double speed) {
+        this.speed = Math.max(0, Math.min(speed, maxSpeed));
+    }
+
+    public double getGasolineLevel() {
+        return gasolineLevel;
+    }
+    protected void consumeFuel(double amount) {
+        gasolineLevel = Math.max(0, gasolineLevel - amount); //clamped consumption + safer modification of values
+    }
+
     String getTypeName() {
         return typeName;
     }
     void fillTank() {
+        System.out.println("Filling tank of "+typeName);
         while (gasolineLevel < tankCapacity){
             gasolineLevel += 1; //added a slightly more realistic filling
         }
-    }
-    double getGasolineLevel() {
-        return gasolineLevel;
     }
 
     String cruiseOnOff(){
         this.cruiseOn = !this.cruiseOn;
         return cruise();
+    }
+
+    boolean isCruiseOn(){
+        return this.cruiseOn;
     }
 
     String cruise(){
@@ -77,7 +91,7 @@ public class Car {
                 return "Outside of allowed cruise boundaries(20-180), cruise control has been turned off.";
             } else {
                 while (this.speed < this.cruiseSpeed) {
-                    if (this.getGasolineLevel() <=0) {
+                    if (getGasolineLevel() <=0) {
                         this.cruiseOnOff();
                         return "The car is out of gas, cruise control has been turned off.";
                     }
