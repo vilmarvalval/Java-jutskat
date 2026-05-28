@@ -40,11 +40,13 @@ public class Task2 {
             thread.start();
         }
         int lenght=0;
+        long lastMsg = 0;
         while(lenght<processors) {
             //wait for threads to finish
             lenght =results.getArray().size();
-            if (System.nanoTime() % 1_000_000_000L < 10_000_000L){
-                System.out.printf("Waited for %.2s seconds, threads finished: "+lenght+"\n", (System.nanoTime()-threadStart)/1_000_000_000);
+            if (System.nanoTime() - lastMsg > 1_000_000_000L){
+                System.out.printf("Waited for %.2f seconds, threads finished: "+lenght+"\n", (System.nanoTime()-threadStart)/1_000_000_000.0);
+                lastMsg = System.nanoTime();
             }
         }
         double sum = 0;
