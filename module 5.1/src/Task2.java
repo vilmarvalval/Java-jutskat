@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Task2 {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         long start = System.nanoTime();
         int processors = Runtime.getRuntime().availableProcessors();
         int size = 100_000_000;
